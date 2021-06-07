@@ -21,7 +21,7 @@
 ## Results
 Algorithm       | max accuracy I reached    |
  -------------- | ------------------------- |
-KNN             |           96.2%           |
+KNN             |           95.2%           |
 Decision Tree   |           99.0%           |
 Random Forest   |           96.2%           |
 SVN             |           96.2%           |
