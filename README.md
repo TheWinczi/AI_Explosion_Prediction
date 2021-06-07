@@ -21,10 +21,10 @@
 ## Results
 Algorithm       | max accuracy I reached    |
  -------------- | ------------------------- |
-KNN             |           00.0%           |
-Decision Tree   |           00.0%           |
-Random Forest   |           00.0%           |
-SVN             |           00.0%           |
+KNN             |           96.2%           |
+Decision Tree   |           99.0%           |
+Random Forest   |           96.2%           |
+SVN             |           96.2%           |
 
 ---
 
@@ -32,7 +32,6 @@ SVN             |           00.0%           |
 + Python 3.9.5
 + scikit-learn
 + pandas
-+ numpy
 
 ---
 
