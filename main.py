@@ -1,8 +1,13 @@
-from pandas import read_csv
+from pandas import read_csv, DataFrame
 import numpy as np
-from sklearn.linear_model import Perceptron
+
 from sklearn.model_selection import *
 from sklearn.metrics import accuracy_score
+
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 
 def read_data_from_file(file_path: str, separator: str = ","):
@@ -13,9 +18,7 @@ def read_data_from_file(file_path: str, separator: str = ","):
         print('Reading data from file failed')
 
 
-def main():
-    data_path = "data/explosive_data.csv"
-    df = read_data_from_file(data_path, separator=";")
+def prepare_data(df: DataFrame):
     df = df.drop(["Type/Index"], axis=1)
     df.drop_duplicates(inplace=True)
 
@@ -31,15 +34,50 @@ def main():
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=1, stratify=y)
 
-    print(y_test)
-    print(np.unique(y_test))
-
-    pnn = Perceptron(eta0=0.1, random_state=1)
-    pnn.fit(x_train, y_train)
-    y_pred = pnn.predict(x_test)
-    print(accuracy_score(y_test, y_pred))
+    return x_train, x_test, y_train, y_test
 
 
+def decision_tree(x_train, x_test, y_train, y_test):
+    tree = DecisionTreeClassifier(criterion='gini', random_state=1)
+    tree.fit(x_train, y_train)
+    y_pred = tree.predict(x_test)
+    print(f"Decision tree accuracy: {accuracy_score(y_test, y_pred)}")
+    print(f"Bad class predict: {(y_pred != y_test).sum()}\n")
+
+
+def random_forest(x_train, x_test, y_train, y_test):
+    forest = RandomForestClassifier(n_estimators=25, criterion='gini', n_jobs=4, random_state=1)
+    forest.fit(x_train, y_train)
+    y_pred = forest.predict(x_test)
+    print(f"Random forest accuracy: {accuracy_score(y_test, y_pred)}")
+    print(f"Bad class predict: {(y_pred != y_test).sum()}\n")
+
+
+def svc_classifier(x_train, x_test, y_train, y_test):
+    svc = SVC(C=1.0, kernel='rbf', random_state=1)
+    svc.fit(x_train, y_train)
+    y_pred = svc.predict(x_test)
+    print(f"SVN accuracy: {accuracy_score(y_test, y_pred)}")
+    print(f"Bad class predict: {(y_pred != y_test).sum()}\n")
+
+
+def knn_classifier(x_train, x_test, y_train, y_test):
+    knn = KNeighborsClassifier(n_neighbors=5, metric='minkowski')
+    knn.fit(x_train, y_train)
+    y_pred = knn.predict(x_test)
+    print(f"KNN accuracy: {accuracy_score(y_test, y_pred)}")
+    print(f"Bad class predict: {(y_pred != y_test).sum()}\n")
+
+
+def main():
+    data_path = "data/data.csv"
+    df = read_data_from_file(data_path, separator=";")
+
+    x_train, x_test, y_train, y_test = prepare_data(df)
+    decision_tree(x_train, x_test, y_train, y_test)
+    random_forest(x_train, x_test, y_train, y_test)
+    svc_classifier(x_train, x_test, y_train, y_test)
+    knn_classifier(x_train, x_test, y_train, y_test)
 
 
 if __name__ == '__main__':
