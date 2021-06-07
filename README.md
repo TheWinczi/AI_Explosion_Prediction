@@ -1,4 +1,5 @@
 # AI Supervised learning from data - Classification
+***Created in June 2021***
 
 ---
 
@@ -6,12 +7,12 @@
 - Program using machine learning classification algorithm has to decide, based on the sensor data vector, whether an explosion has occurred or not.
 - As part of learning 4 different classification algorithms was used and compared:
 
-1. KNN
-2. Decision Tree
-3. Random Forest
-4. SVN
+1. **KNN**
+2. **Decision Tree**
+3. **Random Forest**
+4. **SVN**
 
-## Train and test data description
+## Train and test data
 - Data used to train and test describe values read from the sensors and decision of two values - explosive or non-explosive.
 - train data shape (312, 114)
 - test data shape (104, 114)
@@ -28,10 +29,10 @@ SVN             |           00.0%           |
 ---
 
 ## Technology used
-1. Python 3.9.5
-2. scikit-learn
-3. pandas
-4. numpy
++ Python 3.9.5
++ scikit-learn
++ pandas
++ numpy
 
 ---
 
