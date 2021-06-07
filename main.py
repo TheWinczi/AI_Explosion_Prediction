@@ -32,9 +32,7 @@ def prepare_data(df: DataFrame):
     x = df.drop(["Label"], axis=1).to_numpy()
     y = df["Label"].to_numpy()
 
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=1, stratify=y)
-
-    return x_train, x_test, y_train, y_test
+    return train_test_split(x, y, test_size=0.25, random_state=1, stratify=y)
 
 
 def decision_tree(x_train, x_test, y_train, y_test):
@@ -53,7 +51,7 @@ def random_forest(x_train, x_test, y_train, y_test):
     print(f"Bad class predict: {(y_pred != y_test).sum()}\n")
 
 
-def svc_classifier(x_train, x_test, y_train, y_test):
+def svm_classifier(x_train, x_test, y_train, y_test):
     svc = SVC(C=1.0, kernel='rbf', random_state=1)
     svc.fit(x_train, y_train)
     y_pred = svc.predict(x_test)
@@ -74,9 +72,13 @@ def main():
     df = read_data_from_file(data_path, separator=";")
 
     x_train, x_test, y_train, y_test = prepare_data(df)
+
+    print(x_train.shape)
+    print(x_test.shape)
+
     decision_tree(x_train, x_test, y_train, y_test)
     random_forest(x_train, x_test, y_train, y_test)
-    svc_classifier(x_train, x_test, y_train, y_test)
+    svm_classifier(x_train, x_test, y_train, y_test)
     knn_classifier(x_train, x_test, y_train, y_test)
 
 
