@@ -1,4 +1,4 @@
-# AI Supervised learning from data - Classification
+# AI Supervised learning from data - Explosion Prediction
 ***Created in June 2021***
 
 ---
